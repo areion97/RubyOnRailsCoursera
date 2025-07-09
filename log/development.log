@@ -1,0 +1,485 @@
+  [1m[35m (6.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY) /*application='RubyOnRailsCoursera'*/[0m
+  [1m[35m (2.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RubyOnRailsCoursera'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = 'environment' ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1 /*application='RubyOnRailsCoursera'*/[0m
+  [1m[36mActiveRecord::InternalMetadata Create (1.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2025-07-08 20:59:52.295389', '2025-07-08 20:59:52.295392') RETURNING "key" /*application='RubyOnRailsCoursera'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RubyOnRailsCoursera'*/[0m
+Migrating to CreatePosts (20250708205814)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RubyOnRailsCoursera'*/[0m
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE TABLE "posts" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar, "body" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL) /*application='RubyOnRailsCoursera'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250708205814') RETURNING "version" /*application='RubyOnRailsCoursera'*/[0m
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RubyOnRailsCoursera'*/[0m
+Migrating to CreateComments (20250708205935)
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*application='RubyOnRailsCoursera'*/[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE TABLE "comments" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "post_id" integer NOT NULL, "body" text, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL, CONSTRAINT "fk_rails_2fd19c0db7"
+FOREIGN KEY ("post_id")
+  REFERENCES "posts" ("id")
+) /*application='RubyOnRailsCoursera'*/[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE INDEX "index_comments_on_post_id" ON "comments" ("post_id") /*application='RubyOnRailsCoursera'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Create (2.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250708205935') RETURNING "version" /*application='RubyOnRailsCoursera'*/[0m
+  [1m[36mTRANSACTION (3.7ms)[0m  [1m[35mCOMMIT TRANSACTION /*application='RubyOnRailsCoursera'*/[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RubyOnRailsCoursera'*/[0m
+Started GET "/" for ::1 at 2025-07-08 23:01:06 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (3.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RubyOnRailsCoursera'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/andreasestito/.local/share/mise/installs/ruby/3.4.4/lib/ruby/gems/3.4.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/andreasestito/.local/share/mise/installs/ruby/3.4.4/lib/ruby/gems/3.4.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.5ms | GC: 0.0ms)
+Completed 200 OK in 885ms (Views: 72.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 12.0ms)
+
+
+Started GET "/posts/1" for ::1 at 2025-07-08 23:01:20 +0200
+Processing by PostsController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mPost Load (3.7ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='show',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+Completed 404 Not Found in 859ms (ActiveRecord: 45.9ms (1 query, 0 cached) | GC: 1.8ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Post with 'id'=1):
+  
+app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+Started GET "/posts/" for ::1 at 2025-07-08 23:01:25 +0200
+Processing by PostsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT "posts".* FROM "posts" /*action='index',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/views/posts/index.html.erb:8
+  Rendered posts/index.html.erb within layouts/application (Duration: 11.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 48.6ms | GC: 1.0ms)
+Completed 200 OK in 353ms (Views: 122.7ms | ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 1.4ms)
+
+
+Started GET "/assets/application-8b441ae0.css" for ::1 at 2025-07-08 23:01:26 +0200
+Started GET "/posts/new" for ::1 at 2025-07-08 23:01:28 +0200
+Processing by PostsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering posts/new.html.erb within layouts/application
+  Rendered posts/_form.html.erb (Duration: 164.9ms | GC: 0.0ms)
+  Rendered posts/new.html.erb within layouts/application (Duration: 179.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 181.2ms | GC: 0.0ms)
+Completed 200 OK in 438ms (Views: 184.0ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/posts" for ::1 at 2025-07-08 23:02:27 +0200
+Processing by PostsController#create as HTML
+  Parameters: {"authenticity_token" => "[FILTERED]", "post" => {"title" => "Test title", "body" => "Test body"}, "commit" => "Create Post"}
+  [1m[36mTRANSACTION (4.4ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:27:in 'block in PostsController#create'
+  [1m[36mPost Create (10.8ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "created_at", "updated_at") VALUES ('Test title', 'Test body', '2025-07-08 21:02:27.800830', '2025-07-08 21:02:27.800830') RETURNING "id" /*action='create',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:27:in 'block in PostsController#create'
+  [1m[36mTRANSACTION (9.4ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:27:in 'block in PostsController#create'
+Redirected to http://localhost:3000/posts/1
+Completed 302 Found in 304ms (ActiveRecord: 24.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts/1" for ::1 at 2025-07-08 23:02:27 +0200
+Processing by PostsController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mPost Load (2.8ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='show',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  Rendered posts/_post.html.erb (Duration: 2.9ms | GC: 0.0ms)
+  Rendered posts/show.html.erb within layouts/application (Duration: 37.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 39.3ms | GC: 0.0ms)
+Completed 200 OK in 324ms (Views: 40.6ms | ActiveRecord: 2.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts/1" for ::1 at 2025-07-08 23:02:29 +0200
+Processing by PostsController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mPost Load (1.0ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='show',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  Rendered posts/_post.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered posts/show.html.erb within layouts/application (Duration: 2.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.4ms | GC: 0.0ms)
+Completed 200 OK in 280ms (Views: 5.7ms | ActiveRecord: 1.0ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts/1" for ::1 at 2025-07-08 23:02:31 +0200
+Processing by PostsController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='show',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  Rendered posts/_post.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered posts/show.html.erb within layouts/application (Duration: 3.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.5ms | GC: 0.0ms)
+Completed 200 OK in 269ms (Views: 7.4ms | ActiveRecord: 0.8ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts/" for ::1 at 2025-07-08 23:02:41 +0200
+Processing by PostsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT "posts".* FROM "posts" /*action='index',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/views/posts/index.html.erb:8
+  Rendered posts/_post.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered posts/index.html.erb within layouts/application (Duration: 5.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.7ms | GC: 0.0ms)
+Completed 200 OK in 273ms (Views: 7.0ms | ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts/1" for ::1 at 2025-07-08 23:02:44 +0200
+Processing by PostsController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='show',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  Rendered posts/_post.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered posts/show.html.erb within layouts/application (Duration: 8.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 9.9ms | GC: 0.0ms)
+Completed 200 OK in 284ms (Views: 10.7ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/comments" for ::1 at 2025-07-08 23:03:05 +0200
+Processing by CommentsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering comments/index.html.erb within layouts/application
+  [1m[36mComment Load (0.4ms)[0m  [1m[34mSELECT "comments".* FROM "comments" /*action='index',application='RubyOnRailsCoursera',controller='comments'*/[0m
+  ↳ app/views/comments/index.html.erb:8
+  Rendered comments/index.html.erb within layouts/application (Duration: 9.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.8ms | GC: 0.0ms)
+Completed 200 OK in 338ms (Views: 14.8ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.8ms)
+
+
+Started GET "/comments/new" for ::1 at 2025-07-08 23:03:07 +0200
+Processing by CommentsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering comments/new.html.erb within layouts/application
+  Rendered comments/_form.html.erb (Duration: 11.3ms | GC: 0.0ms)
+  Rendered comments/new.html.erb within layouts/application (Duration: 25.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 27.5ms | GC: 0.0ms)
+Completed 200 OK in 337ms (Views: 29.7ms | ActiveRecord: 2.4ms (0 queries, 0 cached) | GC: 0.9ms)
+
+
+Started POST "/comments" for ::1 at 2025-07-08 23:03:14 +0200
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token" => "[FILTERED]", "comment" => {"post_id" => "Post comment ", "body" => "Body comment"}, "commit" => "Create Comment"}
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='RubyOnRailsCoursera',controller='comments'*/[0m
+  ↳ app/controllers/comments_controller.rb:27:in 'block in CommentsController#create'
+  [1m[36mPost Load (2.0ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 0 LIMIT 1 /*action='create',application='RubyOnRailsCoursera',controller='comments'*/[0m
+  ↳ app/controllers/comments_controller.rb:27:in 'block in CommentsController#create'
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[31mROLLBACK TRANSACTION /*action='create',application='RubyOnRailsCoursera',controller='comments'*/[0m
+  ↳ app/controllers/comments_controller.rb:27:in 'block in CommentsController#create'
+  Rendering layout layouts/application.html.erb
+  Rendering comments/new.html.erb within layouts/application
+  Rendered comments/_form.html.erb (Duration: 12.6ms | GC: 1.0ms)
+  Rendered comments/new.html.erb within layouts/application (Duration: 14.4ms | GC: 1.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 15.9ms | GC: 1.0ms)
+Completed 422 Unprocessable Content in 396ms (Views: 16.6ms | ActiveRecord: 3.0ms (1 query, 0 cached) | GC: 1.8ms)
+
+
+Started POST "/comments" for ::1 at 2025-07-08 23:03:27 +0200
+Processing by CommentsController#create as HTML
+  Parameters: {"authenticity_token" => "[FILTERED]", "comment" => {"post_id" => "1", "body" => "Body comment"}, "commit" => "Create Comment"}
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='RubyOnRailsCoursera',controller='comments'*/[0m
+  ↳ app/controllers/comments_controller.rb:27:in 'block in CommentsController#create'
+  [1m[36mPost Load (7.8ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='create',application='RubyOnRailsCoursera',controller='comments'*/[0m
+  ↳ app/controllers/comments_controller.rb:27:in 'block in CommentsController#create'
+  [1m[36mComment Create (0.1ms)[0m  [1m[32mINSERT INTO "comments" ("post_id", "body", "created_at", "updated_at") VALUES (1, 'Body comment', '2025-07-08 21:03:28.283912', '2025-07-08 21:03:28.283912') RETURNING "id" /*action='create',application='RubyOnRailsCoursera',controller='comments'*/[0m
+  ↳ app/controllers/comments_controller.rb:27:in 'block in CommentsController#create'
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='RubyOnRailsCoursera',controller='comments'*/[0m
+  ↳ app/controllers/comments_controller.rb:27:in 'block in CommentsController#create'
+Redirected to http://localhost:3000/comments/1
+Completed 302 Found in 294ms (ActiveRecord: 10.1ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/comments/1" for ::1 at 2025-07-08 23:03:28 +0200
+Processing by CommentsController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mComment Load (1.2ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 1 LIMIT 1 /*action='show',application='RubyOnRailsCoursera',controller='comments'*/[0m
+  ↳ app/controllers/comments_controller.rb:63:in 'CommentsController#set_comment'
+  Rendering layout layouts/application.html.erb
+  Rendering comments/show.html.erb within layouts/application
+  Rendered comments/_comment.html.erb (Duration: 3.5ms | GC: 0.0ms)
+  Rendered comments/show.html.erb within layouts/application (Duration: 18.5ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 20.3ms | GC: 0.0ms)
+Completed 200 OK in 271ms (Views: 21.6ms | ActiveRecord: 1.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/comments" for ::1 at 2025-07-08 23:03:31 +0200
+Processing by CommentsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering comments/index.html.erb within layouts/application
+  [1m[36mComment Load (0.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments" /*action='index',application='RubyOnRailsCoursera',controller='comments'*/[0m
+  ↳ app/views/comments/index.html.erb:8
+  Rendered comments/_comment.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered comments/index.html.erb within layouts/application (Duration: 6.6ms | GC: 0.6ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.3ms | GC: 0.6ms)
+Completed 200 OK in 259ms (Views: 8.8ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.6ms)
+
+
+Started GET "/comments/1" for ::1 at 2025-07-08 23:03:40 +0200
+Processing by CommentsController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mComment Load (0.9ms)[0m  [1m[34mSELECT "comments".* FROM "comments" WHERE "comments"."id" = 1 LIMIT 1 /*action='show',application='RubyOnRailsCoursera',controller='comments'*/[0m
+  ↳ app/controllers/comments_controller.rb:63:in 'CommentsController#set_comment'
+  Rendering layout layouts/application.html.erb
+  Rendering comments/show.html.erb within layouts/application
+  Rendered comments/_comment.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered comments/show.html.erb within layouts/application (Duration: 9.7ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.1ms | GC: 0.0ms)
+Completed 200 OK in 286ms (Views: 12.0ms | ActiveRecord: 0.9ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2025-07-09 21:02:01 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (2.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RubyOnRailsCoursera'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/andreasestito/.local/share/mise/installs/ruby/3.4.4/lib/ruby/gems/3.4.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/andreasestito/.local/share/mise/installs/ruby/3.4.4/lib/ruby/gems/3.4.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.7ms | GC: 0.0ms)
+Completed 200 OK in 1017ms (Views: 26.6ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.6ms)
+
+
+Started GET "/posts/" for ::1 at 2025-07-09 21:02:08 +0200
+Processing by PostsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (55.8ms)[0m  [1m[34mSELECT "posts".* FROM "posts" /*action='index',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/views/posts/index.html.erb:8
+  Rendered posts/_post.html.erb (Duration: 5.7ms | GC: 0.0ms)
+  Rendered posts/index.html.erb within layouts/application (Duration: 135.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 165.4ms | GC: 0.0ms)
+Completed 200 OK in 644ms (Views: 73.3ms | ActiveRecord: 106.5ms (1 query, 0 cached) | GC: 1.3ms)
+
+
+Started GET "/assets/application-8b441ae0.css" for ::1 at 2025-07-09 21:02:09 +0200
+Started GET "/" for ::1 at 2025-07-09 21:05:05 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (2.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RubyOnRailsCoursera'*/[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/andreasestito/.local/share/mise/installs/ruby/3.4.4/lib/ruby/gems/3.4.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/andreasestito/.local/share/mise/installs/ruby/3.4.4/lib/ruby/gems/3.4.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.2ms | GC: 0.0ms)
+Completed 200 OK in 552ms (Views: 16.5ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/" for ::1 at 2025-07-09 21:05:08 +0200
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/andreasestito/.local/share/mise/installs/ruby/3.4.4/lib/ruby/gems/3.4.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/andreasestito/.local/share/mise/installs/ruby/3.4.4/lib/ruby/gems/3.4.0/gems/railties-8.0.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.4ms | GC: 0.0ms)
+Completed 200 OK in 350ms (Views: 1.4ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts/" for ::1 at 2025-07-09 21:05:12 +0200
+Processing by PostsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (30.8ms)[0m  [1m[34mSELECT "posts".* FROM "posts" /*action='index',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/views/posts/index.html.erb:8
+  Rendered posts/_post.html.erb (Duration: 7.1ms | GC: 0.0ms)
+  Rendered posts/index.html.erb within layouts/application (Duration: 123.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 182.6ms | GC: 0.0ms)
+Completed 200 OK in 527ms (Views: 131.8ms | ActiveRecord: 58.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts/" for ::1 at 2025-07-09 21:06:33 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (2.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC /*application='RubyOnRailsCoursera'*/[0m
+Processing by PostsController#index as HTML
+Started GET "/posts/1" for ::1 at 2025-07-09 21:06:34 +0200
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (31.7ms)[0m  [1m[34mSELECT "posts".* FROM "posts" /*action='index',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/views/posts/index.html.erb:8
+  Rendered posts/_post.html.erb (Duration: 3.1ms | GC: 0.0ms)
+  Rendered posts/index.html.erb within layouts/application (Duration: 100.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 128.8ms | GC: 0.0ms)
+Completed 200 OK in 818ms (Views: 102.7ms | ActiveRecord: 58.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Processing by PostsController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mPost Load (4.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='show',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  Rendered posts/_post.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered posts/show.html.erb within layouts/application (Duration: 6.9ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 12.0ms | GC: 0.0ms)
+Completed 200 OK in 301ms (Views: 13.2ms | ActiveRecord: 4.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started DELETE "/posts/1" for ::1 at 2025-07-09 21:06:36 +0200
+Processing by PostsController#destroy as HTML
+  Parameters: {"authenticity_token" => "[FILTERED]", "id" => "1"}
+  [1m[36mPost Load (0.9ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  [1m[36mTRANSACTION (6.9ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+  [1m[36mPost Destroy (11.0ms)[0m  [1m[31mDELETE FROM "posts" WHERE "posts"."id" = 1 /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[31mROLLBACK TRANSACTION /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+Completed 500 Internal Server Error in 256ms (ActiveRecord: 20.4ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActiveRecord::InvalidForeignKey (SQLite3::ConstraintException: FOREIGN KEY constraint failed)
+Caused by: SQLite3::ConstraintException (FOREIGN KEY constraint failed)
+
+Information for: ActiveRecord::InvalidForeignKey (SQLite3::ConstraintException: FOREIGN KEY constraint failed):
+  
+
+Information for cause: SQLite3::ConstraintException (FOREIGN KEY constraint failed):
+  
+app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+Started DELETE "/posts/1" for ::1 at 2025-07-09 21:06:42 +0200
+Processing by PostsController#destroy as HTML
+  Parameters: {"authenticity_token" => "[FILTERED]", "id" => "1"}
+  [1m[36mPost Load (1.5ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+  [1m[36mPost Destroy (2.2ms)[0m  [1m[31mDELETE FROM "posts" WHERE "posts"."id" = 1 /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK TRANSACTION /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+Completed 500 Internal Server Error in 277ms (ActiveRecord: 4.5ms (2 queries, 0 cached) | GC: 0.2ms)
+
+
+  
+ActiveRecord::InvalidForeignKey (SQLite3::ConstraintException: FOREIGN KEY constraint failed)
+Caused by: SQLite3::ConstraintException (FOREIGN KEY constraint failed)
+
+Information for: ActiveRecord::InvalidForeignKey (SQLite3::ConstraintException: FOREIGN KEY constraint failed):
+  
+
+Information for cause: SQLite3::ConstraintException (FOREIGN KEY constraint failed):
+  
+app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+Started GET "/posts/1/edit" for ::1 at 2025-07-09 21:06:44 +0200
+Processing by PostsController#edit as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='edit',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/edit.html.erb within layouts/application
+  Rendered posts/_form.html.erb (Duration: 19.2ms | GC: 0.0ms)
+  Rendered posts/edit.html.erb within layouts/application (Duration: 27.6ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 29.3ms | GC: 0.0ms)
+Completed 200 OK in 255ms (Views: 30.4ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.2ms)
+
+
+Started PATCH "/posts/1" for ::1 at 2025-07-09 21:06:45 +0200
+Processing by PostsController#update as HTML
+  Parameters: {"authenticity_token" => "[FILTERED]", "post" => {"title" => "Test title", "body" => "Test body"}, "commit" => "Update Post", "id" => "1"}
+  [1m[36mPost Load (0.8ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='update',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+Redirected to http://localhost:3000/posts/1
+Completed 302 Found in 413ms (ActiveRecord: 0.8ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts/1" for ::1 at 2025-07-09 21:06:46 +0200
+Processing by PostsController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='show',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  Rendered posts/_post.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered posts/show.html.erb within layouts/application (Duration: 4.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.4ms | GC: 0.0ms)
+Completed 200 OK in 305ms (Views: 6.3ms | ActiveRecord: 0.4ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started DELETE "/posts/1" for ::1 at 2025-07-09 21:06:47 +0200
+Processing by PostsController#destroy as HTML
+  Parameters: {"authenticity_token" => "[FILTERED]", "id" => "1"}
+  [1m[36mPost Load (1.0ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+  [1m[36mPost Destroy (3.8ms)[0m  [1m[31mDELETE FROM "posts" WHERE "posts"."id" = 1 /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[31mROLLBACK TRANSACTION /*action='destroy',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+Completed 500 Internal Server Error in 263ms (ActiveRecord: 6.7ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+  
+ActiveRecord::InvalidForeignKey (SQLite3::ConstraintException: FOREIGN KEY constraint failed)
+Caused by: SQLite3::ConstraintException (FOREIGN KEY constraint failed)
+
+Information for: ActiveRecord::InvalidForeignKey (SQLite3::ConstraintException: FOREIGN KEY constraint failed):
+  
+
+Information for cause: SQLite3::ConstraintException (FOREIGN KEY constraint failed):
+  
+app/controllers/posts_controller.rb:52:in 'PostsController#destroy'
+Started GET "/posts" for ::1 at 2025-07-09 21:06:50 +0200
+Processing by PostsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.5ms)[0m  [1m[34mSELECT "posts".* FROM "posts" /*action='index',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/views/posts/index.html.erb:8
+  Rendered posts/_post.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered posts/index.html.erb within layouts/application (Duration: 15.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 18.7ms | GC: 0.0ms)
+Completed 200 OK in 325ms (Views: 19.5ms | ActiveRecord: 0.5ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts/1" for ::1 at 2025-07-09 21:06:51 +0200
+Processing by PostsController#show as HTML
+  Parameters: {"id" => "1"}
+  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 1 LIMIT 1 /*action='show',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  Rendered posts/_post.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered posts/show.html.erb within layouts/application (Duration: 4.4ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.7ms | GC: 0.0ms)
+Completed 200 OK in 246ms (Views: 8.2ms | ActiveRecord: 0.6ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts/new" for ::1 at 2025-07-09 21:06:53 +0200
+Processing by PostsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering posts/new.html.erb within layouts/application
+  Rendered posts/_form.html.erb (Duration: 9.0ms | GC: 0.0ms)
+  Rendered posts/new.html.erb within layouts/application (Duration: 13.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 15.4ms | GC: 0.0ms)
+Completed 200 OK in 327ms (Views: 16.3ms | ActiveRecord: 0.0ms (0 queries, 0 cached) | GC: 0.0ms)
+
+
+Started POST "/posts" for ::1 at 2025-07-09 21:06:55 +0200
+Processing by PostsController#create as HTML
+  Parameters: {"authenticity_token" => "[FILTERED]", "post" => {"title" => "1", "body" => "1"}, "commit" => "Create Post"}
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mBEGIN immediate TRANSACTION /*action='create',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:27:in 'block in PostsController#create'
+  [1m[36mPost Create (6.8ms)[0m  [1m[32mINSERT INTO "posts" ("title", "body", "created_at", "updated_at") VALUES ('1', '1', '2025-07-09 19:06:56.132441', '2025-07-09 19:06:56.132441') RETURNING "id" /*action='create',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:27:in 'block in PostsController#create'
+  [1m[36mTRANSACTION (8.2ms)[0m  [1m[35mCOMMIT TRANSACTION /*action='create',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:27:in 'block in PostsController#create'
+Redirected to http://localhost:3000/posts/2
+Completed 302 Found in 366ms (ActiveRecord: 15.5ms (1 query, 0 cached) | GC: 1.9ms)
+
+
+Started GET "/posts/2" for ::1 at 2025-07-09 21:06:56 +0200
+Processing by PostsController#show as HTML
+  Parameters: {"id" => "2"}
+  [1m[36mPost Load (2.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."id" = 2 LIMIT 1 /*action='show',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/controllers/posts_controller.rb:63:in 'PostsController#set_post'
+  Rendering layout layouts/application.html.erb
+  Rendering posts/show.html.erb within layouts/application
+  Rendered posts/_post.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered posts/show.html.erb within layouts/application (Duration: 2.8ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.4ms | GC: 0.0ms)
+Completed 200 OK in 233ms (Views: 6.4ms | ActiveRecord: 2.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/posts" for ::1 at 2025-07-09 21:06:59 +0200
+Processing by PostsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering posts/index.html.erb within layouts/application
+  [1m[36mPost Load (0.3ms)[0m  [1m[34mSELECT "posts".* FROM "posts" /*action='index',application='RubyOnRailsCoursera',controller='posts'*/[0m
+  ↳ app/views/posts/index.html.erb:8
+  Rendered posts/_post.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered posts/_post.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered posts/index.html.erb within layouts/application (Duration: 9.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 10.2ms | GC: 0.0ms)
+Completed 200 OK in 246ms (Views: 10.3ms | ActiveRecord: 0.3ms (1 query, 0 cached) | GC: 0.0ms)
+
+
