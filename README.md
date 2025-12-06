@@ -22,3 +22,11 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+
+Run with:
+
+rails db:drop db:create db:migrate
+
+rails server
